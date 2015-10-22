@@ -1,5 +1,5 @@
 # BIOE 421 - Team MAHI (Team01) Final Project
-# Cecilia Brookshier and John Michael Frullo
+## Cecilia Brookshier and John Michael Frullo
 ## Milestones
 
 1. October 22nd: Initialized GitHub repository. Populated README and Milestones.
