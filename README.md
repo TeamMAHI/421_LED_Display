@@ -1,13 +1,21 @@
-# 421_app_controlled_car
+# 421_LED_Display
 #### by John Michael Frullo and Cecilia Brookshier
 
 Code and documents for Team MAHI's final project for BIOE 421
 
 ### Brainstorming
 
-We will make a car that can be driven by an app on an iPhone. The user will be able to control the car’s direction as well as additional features (lights, noises, etc.) using the controller buttons in the app. The car will perform different actions under each mode. The car itself will feature two DC motors for driving the wheels, a servo motor for directional control, LEDs and a buzzer for aesthetics/appeal, and a portable battery pack. The car will run using control signals from an arduino. The arduino will receive the user input from the app using Adafruit’s Bluefruit LE UART Friend and control the motors using a motor shield. The app is Adafruit’s Bluefruit LE iOS application.
+We want to use the Adafruit's Flexible 8x32 NeoPixel RGB LED Matrix to display information and images to an audience.
+Different ideas for the LED Display are:
+* News Headlines (Rice Thresher)
+* Music Spectrum (KTRU)
+* Time Display
+* Weather Display
+* Games (Maze, Frogger, Snake, PacMan, Tetris)
+* Fun Visuals
+* Manipulation of 2D images
 
 ### Abstract
 
-Our project is a motorized car that is controlled by a user via Adafruit’s Bluefried LE iOS application for iPhone. The project entails creating a car chassis that is outfitted with two DC motors for the back wheels.  An onboard Arduino controls the motors through a Motorshield, allowing each to be controlled independently. In addition to a normal drive mode that utilizes the app’s directional buttons, the user will have the option to select different modes. These different modes will activate LEDs and buzzers on the car and change the car’s driving actions. A portable battery pack will be used to power all the components of the app controlled car.
+
 
