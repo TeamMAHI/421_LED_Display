@@ -14,6 +14,7 @@ Different ideas for the LED Display are:
 * Games (Maze, Frogger, Snake, PacMan, Tetris)
 * Fun Visuals
 * Manipulation of 2D images
+* Drawing images
 
 ### Abstract
 
