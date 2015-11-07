@@ -7,9 +7,12 @@ int [] sensors = null;
 int xrot;
 int yrot;
 int zrot;
+float Size;
 
 void setup() {
-  size( 700, 700);
+  size( 700, 700, P3D);
+  Size = width/6;
+  
   //Serial.list() [0] lists the available Serial Port on the computer, 0 means the first value in the array which is the one Serial Port processing uses 
   usbPort = new Serial (this, Serial.list() [0], 9600); 
   usbPort.bufferUntil('\n');
@@ -17,10 +20,16 @@ void setup() {
 
 
 void draw() {
-  rect(0,0,700,700);
-  fill(0,0,0);
-  rect(100, 100, 50+zrot, 50+yrot);
+  background(126);
+  translate(width/2, height/2);
+  
+  rotateX(radians(xrot));
+  rotateY(radians(yrot));
+  rotateZ(radians(zrot));
+  
   fill(0, 250, 250);
+  //rect(-rSize, -rSize, rSize*2, rSize*2);
+  box(Size*2);
 }
 
 
@@ -39,15 +48,14 @@ void serialEvent(Serial usbPort) {
     else {
       int sensors[] = int(split(usbString, ',')); //splits string into integer values
       for (int sensorNum = 0; sensorNum <sensors.length; sensorNum++) {
-      println("Sensor" + sensorNum+ ":" + sensors [sensorNum]);
+      //println("Sensor" + sensorNum+ ":" + sensors [sensorNum]);
       }
-      int slider1 = sensors[0];
-      int slider2 = sensors[1];
-      int slider3 = sensors[2];
-      xrot = int(map(slider1, 1, 1023, 1, 500)); //mapping the slider1 value
-      //println(xrot);
-      yrot = int(map(slider2, 1, 1023, 1, 500)); //mapping the slider2 value
-      zrot = int(map(slider3, 1, 1023, 1, 500)); //mapping the slider3 value
+      int slider1 = sensors[1];
+      int slider2 = sensors[2];
+      int slider3 = sensors[3];
+      xrot = int(map(slider1, 1, 1023, 0, 360)); //mapping the slider1 value
+      yrot = int(map(slider2, 1, 1023, 0, 360)); //mapping the slider2 value
+      zrot = int(map(slider3, 1, 1023, 0, 360)); //mapping the slider3 value
       usbPort.write("A");
     }
   }

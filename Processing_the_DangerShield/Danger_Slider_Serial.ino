@@ -1,9 +1,9 @@
 #define BUTTON1 10
 #define BUTTON2 11
 #define BUTTON3 12
-#define SLIDER1 2   //slider 1 is pin 2
-#define SLIDER2 1
-#define SLIDER3 0
+#define SLIDER1 A2   //slider 1 is pin 2
+#define SLIDER2 A1
+#define SLIDER3 A0
 char START_BYTE = '*';
 char Delimiter = ','; //specifying what the delimiter is
 char END_BYTE = '#';
@@ -27,11 +27,12 @@ void loop() {
   
   //sending the slider data
   Serial.print(START_BYTE);
-  Serial.print(xrot, DEC); //passes just a number to processing
   Serial.print(Delimiter); //inserts delimiter to separate data
-  Serial.print(yrot, DEC); //passes just a number to processing
-  Serial.print(Delimiter); //inserts delimiter to separate data
-  Serial.print(zrot, DEC);
+  Serial.print(xrot, DEC); //passes SLIDER1 data to processing
+  Serial.print(Delimiter); 
+  Serial.print(yrot, DEC); //passes SLIDER2 data to processing
+  Serial.print(Delimiter); 
+  Serial.print(zrot, DEC); //passes SLIDER3 data to processing
   Serial.print(Delimiter);
   Serial.println(END_BYTE); //uses serial.println so that it sends a carriage return (signals end of data)
 
