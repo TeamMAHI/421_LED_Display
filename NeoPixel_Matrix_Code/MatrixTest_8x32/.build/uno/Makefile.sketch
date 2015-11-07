@@ -1,0 +1,14 @@
+
+
+
+
+
+.build/uno/src/MatrixTest_8x32.cpp : src/MatrixTest_8x32.ino
+	@mkdir -p .build/uno/src
+	@echo [93msrc/MatrixTest_8x32.ino[0m
+	@/usr/local/bin/ino preproc  -o $@ $^
+
+
+all : .build/uno/src/MatrixTest_8x32.cpp
+	@true
+
