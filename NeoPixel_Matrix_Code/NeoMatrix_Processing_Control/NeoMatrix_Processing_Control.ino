@@ -1,12 +1,11 @@
-// Adafruit_NeoMatrix example for single NeoPixel Shield.
-// Scrolls 'Howdy' across the matrix in a portrait (vertical) orientation.
+//John Michael Frullo and Cecilia Brookshier
+
+//uses the file Proc_to_Ard_P.pde Processing sketch to control the stream of words across the NeoPixel 8x32 matrix
+
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
-#ifndef PSTR
- #define PSTR // Make Arduino Due happy
-#endif
 
 #define PIN 6
 
@@ -44,25 +43,36 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, 8, PIN,  NEO_MATRIX_TOP + NEO
 const uint16_t colors[] = {
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
 
+char val; // Data received from the serial port
+
 void setup() {
   matrix.begin();
   matrix.setTextWrap(false);
   matrix.setBrightness(60);
   matrix.setTextColor(colors[0]);
+  
+  Serial.begin(9600); // Start serial communication at 9600 bps
 }
 
 int x    = matrix.width();
 int pass = 0;
 
 void loop() {
+  if (Serial.available()) 
+  { // If data is available to read,
+    val = Serial.read(); // read it and store it in val
+  }
+  if (val == '1') {
   matrix.fillScreen(0);
   matrix.setCursor(x, 0);
-  matrix.print(F("MoJo JoJo"));
-  if(--x < -45) {
+  matrix.print(F("JMF & Ceci Rock!!"));
+  if(--x < -80) {
     x = matrix.width();
     if(++pass >= 3) pass = 0;
     matrix.setTextColor(colors[pass]);
   }
   matrix.show();
   delay(50);
+  }
+  delay(10);
 }
