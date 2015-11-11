@@ -1,6 +1,6 @@
 ## Use Instructions
 
-In order to use the NeoPical Matrix Code files, you must download the 3 libraries:
+In order to use the NeoPixel Matrix Code files, you must download the 3 libraries:
 
 * Adafruit_GFX
 * Adafruit_NeoMatrix
