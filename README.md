@@ -5,8 +5,8 @@ Code and documents for Team MAHI's final project for BIOE 421
 
 ### Brainstorming
 
-We want to use the Adafruit's Flexible 8x32 NeoPixel RGB LED Matrix to display information and images to an audience.
-Different ideas for the LED Display are:
+We want to show the utility of using the DangerShield in controlling and interacting with various displays. We want to use Adafruit's Flexible 8x32 NeoPixel RGB LED Matrix to display text information and rudimentary images. For more complex, 3D images, we will use Processing and a monitor to show the user's manipulation of the objects with the DangerShield
+Different ideas for the interactions are:
 * News Headlines (Rice Thresher)
 * Music Spectrum (KTRU)
 * Time Display
@@ -15,10 +15,11 @@ Different ideas for the LED Display are:
 * Games (Maze, Frogger, Snake, PacMan, Tetris)
 * Fun Visuals
 * Manipulation of 2D images
+* Manipulation of 3D images
 * Drawing images
 
 ### Abstract
 
-Our project is a to take advantage of the visual capabilities of Processing, the portability of the Raspberry Pi and Arduino Uno, and the programming simplicity of Adafruit’s Neopixel 8x32 LED display.  After installing Processing on the Pi, we introduced a handshake between the Uno and the Pi to send information serially back and forth. Once the information is sent to the Uno, it is visually represented on the Neopixel LED matrix. With this configuration, we can display data from the internet (weather, time, stock market information, etc.), create interactive art visuals (colorful shapes and images), and even play games (Tetris, Mario, PacMan). The DangerShield on the Uno allows for direct user input in selecting the various modes (internet, interactive art, and games) and the actions within those modes (choosing the data to display, rotation of the art, and playing the games, respectively). BIOE 421/521 focuses on the use of the Raspberry Pi but leaves it tethered to a computer monitor and keyboard. By integrating Processing’s image manipulation capabilities and Neopixel’s ease of operation with the familiar microcontrollers, we demonstrate the possibilities for a portable and interactive display.
+Our project is to take advantage of the underutilized DangerShield for the Arduino Uno and to show how it may be used as a multipurpose controller. We plan on illustrating this using Adafruit's Neopixel 8x32 LED display and Processing, an open source software for visual arts programming. On the Neopixel, we plan to display text information pulled from the internet using Processing on the Raspberry Pi. The user can then interact with this information with the sliders and buttons on the DangerShield (text selection, speed, color, and brightness). To show the DangerShield's use for object manipulation, we will create complex images in Processing and display it via a computer monitor. The user will be able to translate and rotate the object in all 3 spatial dimensions. By integrating Processing and the Neopixel display with familiar microcontrollers, we have shown several instances where the DangerShield provides excellent user control; however, the applications can be extended to many other areas, such as: games and interactive visuals on the Neopixel or 3D manipulation of objects in CAD software or research settings.
 
 
