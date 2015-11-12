@@ -6,8 +6,16 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
+#include <CapacitiveSensor.h>
 
 #define PIN 13
+#define SLIDER1  A2 //Matches button 1
+#define SLIDER2  A1 
+#define SLIDER3  A0 //Matches button 3
+#define BUTTON1  10
+#define DATA     4
+#define LATCH    7
+#define CLOCK    8
 
 // MATRIX DECLARATION:
 // Parameter 1 = width of NeoPixel matrix
@@ -40,25 +48,57 @@
 //  NEO_GRB            + NEO_KHZ800);
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, 8, PIN,  NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG, NEO_GRB + NEO_KHZ800);
 
-const uint16_t colors[] = {
-  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
+//const uint16_t colors[] = {
+//  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
 
 String val; // Data received from the serial port
 String str;
+int R = 255; // colors read by sliders (default, Red)
+int G = 0;
+int B = 0;
+int Bval = 20; //brightness
+int Sval = 50; //speed
 
 void setup() {
   matrix.begin();
   matrix.setTextWrap(false);
-  matrix.setBrightness(20);
-  matrix.setTextColor(colors[0]);
   
   Serial.begin(9600); // Start serial communication at 9600 bps
+  
+  pinMode(SLIDER1, INPUT);
+  pinMode(SLIDER2, INPUT);
+  pinMode(SLIDER3, INPUT);
+  pinMode(BUTTON1, INPUT_PULLUP);
+  digitalWrite(LATCH, LOW); // turn off the seven segment LED
+  shiftOut(DATA, CLOCK, MSBFIRST, ~(00000000));
+  digitalWrite(LATCH, HIGH);
+  
+  establishContact();  // send a byte to establish contact until receiver responds
 }
 
 int x    = matrix.width();
 int pass = 0;
 
 void loop() {
+  int val1 = analogRead(SLIDER1);
+  int val2 = analogRead(SLIDER2);
+  int val3 = analogRead(SLIDER3);
+  
+  if(digitalRead(BUTTON1) == LOW) {
+    R = map(val1, 0, 1020, 0, 255);
+    G = map(val2, 0, 1020, 0, 255);
+    B = map(val3, 0, 1020, 0, 255);
+  } 
+  else {
+    Sval = map(val2, 0, 1020, 10, 200); //Map the slider value to a scroll speed
+    Bval = map(val3, 0, 1020, 0, 60); //Map the slider value to a brightness
+  }
+  matrix.setTextColor(matrix.Color(R,G,B));
+//  int Cval = map(val1, 0, 1020, 0, 2); //Map the slider value to Color option
+//  matrix.setTextColor(colors[Cval]);
+  
+  matrix.setBrightness(Bval);
+  
   if (Serial.available() > 0) { // If data is available to read,
     val = Serial.readStringUntil('!'); // read it and store it in val
   }
@@ -68,9 +108,16 @@ void loop() {
   matrix.fillScreen(0);
   matrix.setCursor(x, 0);
   matrix.print(str);
-  if(--x < -36) {
+  if(--x < -60) {
     x = matrix.width();
   }
   matrix.show();
-  delay(50);
+  delay(Sval);
+}
+
+void establishContact() {
+  while (Serial.available() <= 0) {
+  Serial.println("A");   // send a capital A
+  delay(300);
+  }
 }
