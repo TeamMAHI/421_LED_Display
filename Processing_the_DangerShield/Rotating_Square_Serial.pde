@@ -2,11 +2,14 @@
 import processing.serial.*;
 Serial usbPort;
 boolean firstContact = false; //sets firstContact to false to ensure Arduino keeps searching
-int [] sensorData; //creates array for data
-int [] sensors = null;
-int xrot;
-int yrot;
-int zrot;
+float [] sensorData; //creates array for data
+float [] sensors = null;
+float xrot;
+float yrot;
+float zrot;
+float xmove;
+float ymove;
+float zoom;
 float Size;
 
 void setup() {
@@ -21,7 +24,8 @@ void setup() {
 
 void draw() {
   background(126);
-  translate(width/2, height/2);
+  translate(xmove, ymove);
+  scale(zoom, zoom, zoom);
   
   rotateX(radians(xrot));
   rotateY(radians(yrot));
@@ -46,16 +50,16 @@ void serialEvent(Serial usbPort) {
       }
     }
     else {
-      int sensors[] = int(split(usbString, ',')); //splits string into integer values
+      float sensors[] = float(split(usbString, ',')); //splits string into integer values
       for (int sensorNum = 0; sensorNum <sensors.length; sensorNum++) {
       //println("Sensor" + sensorNum+ ":" + sensors [sensorNum]);
       }
-      int slider1 = sensors[1];
-      int slider2 = sensors[2];
-      int slider3 = sensors[3];
-      xrot = int(map(slider1, 1, 1023, 0, 360)); //mapping the slider1 value
-      yrot = int(map(slider2, 1, 1023, 0, 360)); //mapping the slider2 value
-      zrot = int(map(slider3, 1, 1023, 0, 360)); //mapping the slider3 value
+      xrot = sensors[1];
+      yrot = sensors[2];
+      zrot = sensors[3];
+      xmove = sensors[4];
+      ymove = sensors[5];
+      zoom = sensors[6];
       usbPort.write("A");
     }
   }
