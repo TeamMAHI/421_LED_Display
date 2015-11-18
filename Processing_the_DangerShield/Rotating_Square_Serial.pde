@@ -1,4 +1,9 @@
-// Serial communication with Arduino (rotating shape)
+// John Michael and Cecilia
+
+// This processing code handles the serial communication 
+// with Arduino, and uses the DangerShield to rotate, translate,
+// and zoom into a complex image
+
 import processing.serial.*;
 Serial usbPort;
 boolean firstContact = false; //sets firstContact to false to ensure Arduino keeps searching
@@ -31,8 +36,7 @@ void draw() {
   rotateY(radians(yrot));
   rotateZ(radians(zrot));
   
-  fill(0, 250, 250);
-  //rect(-rSize, -rSize, rSize*2, rSize*2);
+  fill(0, 220, 240);
   box(Size*2);
 }
 
