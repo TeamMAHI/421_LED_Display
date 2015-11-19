@@ -15,7 +15,7 @@ float yrot;
 float zrot;
 float xmove;
 float ymove;
-float zoom;
+float zoom = 1.0;
 float Size;
 
 PShape rocket;
@@ -40,7 +40,7 @@ void draw() {
   
   rotateX(radians(xrot));
   rotateY(radians(yrot));
-  rotateZ(radians(zrot));
+  rotateZ(radians(zrot+180));
   shape(rocket);
   
 }
@@ -66,9 +66,24 @@ void serialEvent(Serial usbPort) {
       xrot = sensors[1];
       yrot = sensors[2];
       zrot = sensors[3];
+      float oldxmove = xmove;
       xmove = sensors[4];
+      // The following code prevents the jitters/vibrations caused by small translational/zoom changes
+      if (abs(oldxmove - xmove) < 3) { //so if the change is too small, keep xmove as the previous value
+        xmove = oldxmove;
+      }
+      float oldymove = ymove;
       ymove = sensors[5];
+      if (abs(oldymove - ymove) < 3) {
+        ymove = oldymove;
+      }
+      float oldzoom = zoom; //store old value
       zoom = sensors[6];
+      //float diff = abs(oldzoom - zoom);
+      //println(diff);
+      if (abs(oldzoom - zoom) < 0.05) {
+        zoom = oldzoom;
+      }
       usbPort.write("A");
     }
   }
