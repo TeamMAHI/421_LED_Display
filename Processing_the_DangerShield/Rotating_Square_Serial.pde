@@ -6,6 +6,7 @@
 
 import processing.serial.*;
 Serial usbPort;
+
 boolean firstContact = false; //sets firstContact to false to ensure Arduino keeps searching
 float [] sensorData; //creates array for data
 float [] sensors = null;
@@ -17,9 +18,13 @@ float ymove;
 float zoom;
 float Size;
 
+PShape rocket;
+
 void setup() {
   size( 700, 700, P3D);
   Size = width/6;
+  
+  rocket = loadShape("rocket.obj");
   
   //Serial.list() [0] lists the available Serial Port on the computer, 0 means the first value in the array which is the one Serial Port processing uses 
   usbPort = new Serial (this, Serial.list() [0], 9600); 
@@ -28,16 +33,16 @@ void setup() {
 
 
 void draw() {
-  background(126);
+  background(0,0,20);
+  lights();
   translate(xmove, ymove);
   scale(zoom, zoom, zoom);
   
   rotateX(radians(xrot));
   rotateY(radians(yrot));
   rotateZ(radians(zrot));
+  shape(rocket);
   
-  fill(0, 220, 240);
-  box(Size*2);
 }
 
 
