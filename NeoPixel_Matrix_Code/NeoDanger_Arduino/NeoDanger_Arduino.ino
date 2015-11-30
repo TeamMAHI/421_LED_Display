@@ -60,7 +60,6 @@ void setup()
 
   //initialize serial communications
   Serial.begin(9600);
-  //Serial.begin(115200);
 
   pinMode(SLIDER1, INPUT); //DangerShield inputs
   pinMode(SLIDER2, INPUT);
@@ -134,11 +133,20 @@ void loop()
   }
   
   if (digitalRead(BUTTON3) == LOW) { //Return to Home
-    level = 0;
-    newsind = 0;
-    dateind = 0;
-    otime = 0;
+    if (level == 0) {
+      //do nothing
+    }
+    else if (level == 1) {
+      level = 0;
+      newsind = 0;
+      dateind = 0;
+      otime = 0;
+    }
+    else {
+      level = level -1;
+    }
     x = matrix.width();
+    delay(200);
   }
   
   if (curr != oldcurr) {
@@ -185,7 +193,7 @@ void loop()
   }
   matrix.print(commstr);
   L = commstr.length();
-  if(--x < -(6*L)) {                             // CHANGE THIS TO BE CONSISTENT WITH THE LENGTH!!!
+  if(--x < -(6*L)) {
     x = matrix.width();
   }
   matrix.show();
