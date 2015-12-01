@@ -25,6 +25,8 @@ float zoom = 1.0;
 int light = 0;
 int avglight;
 
+int shapechoice = 1;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -53,8 +55,7 @@ void loop() {
   // transforming the slider data
   xmove = (map(slider1, 1, 1023, 0, 700)); //mapping the slider1 value
   ymove = (map(slider2, 1, 1023, 0, 700)); //mapping the slider2 value
-  //zoom = float(map(slider3, 1.0, 1023.0, 0.5, 6.0)); //mapping the slider3 value
-  zoom = 0.005382*slider3 + 0.4946;
+  zoom = 0.005382*slider3 + 0.4946; //mapping the slider3 value. Needed a float, couldn't use map
   
   // collecting the light sensor data
   light = analogRead(LIGHT);
@@ -73,7 +74,7 @@ void loop() {
     }
   }
 
-  // y-rotation with BUTTON2
+  // calculating y-rotation with BUTTON2
   if (digitalRead(BUTTON2) == LOW & light < (avglight * 3/4)) { // if the botton is pressed, rotate the object in x
     yrot = yrot + 2;    
     if (yrot == 360) {
@@ -87,7 +88,7 @@ void loop() {
     }
   }
 
-  //z-rotation with BUTTON3
+  // calculating z-rotation with BUTTON3
   if (digitalRead(BUTTON3) == LOW & light < (avglight * 3/4)) { // if the botton is pressed, rotate the object in x
     zrot = zrot + 2;    
     if (zrot == 360) {
@@ -101,6 +102,14 @@ void loop() {
     }
   }
 
+// determining if the user wants to change images (pressing both BUTTON1 and BUTTON2)
+  if (digitalRead(BUTTON1) == LOW & digitalRead(BUTTON2) == LOW) {
+    shapechoice++; // add 1 to shapechoice
+    if (shapechoice == 4) {
+      shapechoice = 1;
+    }
+    delay(300);    // include a delay to ensure it doesn't increase more than 1 because of a
+  }
   
   //sending the slider data
   Serial.print(START_BYTE);
@@ -118,6 +127,9 @@ void loop() {
   Serial.print(ymove, DEC); 
   Serial.print(Delimiter); 
   Serial.print(zoom);
+  Serial.print(Delimiter);
+  // Shapechoice
+  Serial.print(shapechoice);
   Serial.print(Delimiter);
   Serial.println(END_BYTE); //uses serial.println so that it sends a carriage return (signals end of data)
 
