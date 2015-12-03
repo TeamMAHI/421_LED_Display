@@ -24,9 +24,15 @@ Our project is to take advantage of the underutilized DangerShield for the Ardui
 
 ### Currently
 
+<<<<<<< HEAD
 (12/1)
 Code is completely finished for BIOE 421 project. For the 3D object manipulation, we are able to translate (x and y), zoom in and out (z), and rotate (x, y,and z) 3D objects through Processing, using the DangerShield sliders and buttons. For the Neopixel matrix, we are able to control the brightness, color, and speed of the display. We can also use the Dangershield sliders and buttons to navigate through different display windows and select what can be displayed. The current display options include a home screen, the date and time, and news headlines from the New York Times RSS feeds in selections of US news, sports news, science news, and tech news.
 
-(11/12)
+
+<<<<<<< HEAD
+=======
 We are able to use the DangerShield to control the brightness, color, and speed of the date and time displayed on the Neopixel. We are now trying to input news headlines from the New York Times through RSS feeds and have the user scroll through and select the headlines.
 We are also able to usee the sliders to control the x-, y-, and z-rotation of an image in Processing. We are now trying to add in translation and zooming features into the 3D object manipulation.
+>>>>>>> parent of a0f4c4a... Update README.md
+=======
+>>>>>>> 5b3ba15a09ee5137971f19c10592896e32fd5d67
